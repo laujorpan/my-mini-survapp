@@ -1,0 +1,62 @@
+https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
+
+Ej:
+https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson
+Format
+https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${mag}_${freq}.geojson
+
+mag
+["significant","all","week","month"]
+freq
+["hour","day","week","month"]
+
+Funcion:
+function getEarthquakes(mag,freq){
+    return `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${mag}_${freq}.geojson`
+}
+
+Gestion llamada con librería  got:
+npm install got
+
+basic vorpal:-----------------------------------------------------
+const vorpal = require('vorpal')();
+const {getEarthquakes} = require("./module.js")
+
+vorpal
+  .command('report', 'Earthquakes info".')
+  .action(function(args, callback) {
+    getEarthquakes("all","hour")
+      .then(earthquakes=> earthquakes.forEach( item => console.log(`${item.properties.place}`)))
+      .catch(`No se Rick parece falso`)
+      .finally(callback);
+  });
+  
+ 
+vorpal
+  .delimiter('equakes$')
+  .show();
+
+
+function getEarthquakes(mag,freq){
+    //return `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${mag}_${freq}.geojson`
+    got(`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${mag}_${freq}.geojson`)
+    .then(data=> console.log(data))
+    .catch(err=> console.log("Decepcion!!!:",err))
+}
+
+createBot -----------------------------
+1. /newBot
+2. dar nombre 
+
+Done! Congratulations on your new bot. You will find it at t.me/myeq_bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
+
+Use this token to access the HTTP API:
+[...]
+Keep your token secure and store it safely, it can be used by anyone to control your bot.
+
+For a description of the Bot API, see this page: https://core.telegram.org/bots/api
+
+------------------------------------
+Canales para aprender mas:
+twitch.tv/ulisesgascon
+twitch.tv/carlosazaustre
